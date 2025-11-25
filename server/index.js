@@ -76,5 +76,5 @@ app.delete("/empleados/:id", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log("servidor del server corriendo en el puerto 3001");
+  console.log("Running server on Port 3001");
 });
