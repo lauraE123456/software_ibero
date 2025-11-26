@@ -3,6 +3,7 @@
 //useEffect permite ejecutar las funciones
 import { useEffect, useState } from "react";
 import "./App.css";
+import Swal from "sweetalert2";
 
 function App() {
   const [name, setName] = useState("");
@@ -22,11 +23,26 @@ function App() {
     //definimos una funcion asicrona, para cargar empleados
     const loadEmployees = async () => {
       try {
-        const response = await fetch("http://localhost:3001/empleados");
+        const response = await fetch("http://localhost:3001/employees");
         const data = await response.json(); //respuesta en formato json
         setRegister(data);
       } catch (error) {
-        alert("Error al cargar los empleados", error);
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: "Error loading employees",
+          showConfirmButton: false,
+          timer: 1500,
+
+          // 🎨 Colores personalizados
+          background: "var(--color-card)",     // fondo de tarjeta
+          color: "var(--color-text)",          // color del texto
+          iconColor: "var(--color-primary)",   // color del ícono
+          customClass: {
+            popup: "swal-custom-popup",
+            title: "swal-custom-title",
+          },
+        });
         console.log("Error al cargar los empleados", error);
       }
     };
@@ -41,7 +57,7 @@ function App() {
       try {
         const employee = register[editIndex];
         const response = await fetch(
-          `http://localhost:3001/empleados/${employee.id}`,
+          `http://localhost:3001/employees/${employee.id}`,
           {
             method: "PUT", //metodo http para actualizar,
             headers: { "Content-Type": "application/json" },
@@ -60,16 +76,46 @@ function App() {
             years,
           };
           setEditIndex(null);
-          alert("Empleado actualizado correctamente");
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Employee updated successfully",
+            showConfirmButton: false,
+            timer: 1500,
+
+            // 🎨 Colores personalizados
+            background: "var(--color-card)",     // fondo de tarjeta
+            color: "var(--color-text)",          // color del texto
+            iconColor: "var(--color-primary)",   // color del ícono
+            customClass: {
+              popup: "swal-custom-popup",
+              title: "swal-custom-title",
+            },
+          });
         } else {
-          alert("Error al actualizar el empleado");
+          Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "Error updating employee",
+            showConfirmButton: false,
+            timer: 1500,
+
+            // 🎨 Colores personalizados
+            background: "var(--color-card)",     // fondo de tarjeta
+            color: "var(--color-text)",          // color del texto
+            iconColor: "var(--color-primary)",   // color del ícono
+            customClass: {
+              popup: "swal-custom-popup",
+              title: "swal-custom-title",
+            },
+          });
         }
       } catch (error) {
-        alert("Error de conexion al actualizar el empleado", error);
+        console.log("Error de conexion al actualizar el empleado", error);
       }
     } else {
       try {
-        const response = await fetch("http://localhost:3001/empleados", {
+        const response = await fetch("http://localhost:3001/employees", {
           method: "POST", //metodo http para actualizar,
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ name, age, country, role, years }),
@@ -77,12 +123,44 @@ function App() {
         const data = await response.json();
         if (response.ok) {
           setRegister([...register, data]);
-          alert("Empleado guardado correctamente");
+
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Employee saved successfully",
+            showConfirmButton: false,
+            timer: 1500,
+
+            // 🎨 Colores personalizados
+            background: "var(--color-card)",     // fondo de tarjeta
+            color: "var(--color-text)",          // color del texto
+            iconColor: "var(--color-primary)",   // color del ícono
+            customClass: {
+              popup: "swal-custom-popup",
+              title: "swal-custom-title",
+            },
+          });
+
         } else {
-          alert("Error al registar el usuario");
+          Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "Error saving employee",
+            showConfirmButton: false,
+            timer: 1500,
+
+            // 🎨 Colores personalizados
+            background: "var(--color-card)",     // fondo de tarjeta
+            color: "var(--color-text)",          // color del texto
+            iconColor: "var(--color-primary)",   // color del ícono
+            customClass: {
+              popup: "swal-custom-popup",
+              title: "swal-custom-title",
+            },
+          });
         }
       } catch (error) {
-        alert("Error de conexion al registar el usuario", error);
+        console.log("Error de conexion al registar el usuario", error);
       }
     }
     setName("");
