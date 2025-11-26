@@ -91,7 +91,84 @@ function App() {
     setRole("");
     setYears(0);
   };
-  return <div></div>;
+  return (
+    <div className="container">
+      <div className="form-card">
+        <div className="form-header">
+          <h2>Registro de Empleados</h2>
+          <p>Ingresa la información del nuevo integrante</p>
+        </div>
+
+        <form onSubmit={registerData}>
+          <div className="form-group">
+            <label htmlFor="name">Nombre Completo</label>
+            <input
+              type="text"
+              id="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Ej: Juan Pérez"
+              required
+            />
+          </div>
+
+          <div className="form-row">
+            <div className="form-group">
+              <label htmlFor="age">Edad</label>
+              <input
+                type="number"
+                id="age"
+                value={age}
+                onChange={(e) => setAge(e.target.value)}
+                placeholder="0"
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="years">Años de Experiencia</label>
+              <input
+                type="number"
+                id="years"
+                value={years}
+                onChange={(e) => setYears(e.target.value)}
+                placeholder="0"
+                required
+              />
+            </div>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="country">País</label>
+            <input
+              type="text"
+              id="country"
+              value={country}
+              onChange={(e) => setCountry(e.target.value)}
+              placeholder="Ej: Colombia"
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="role">Cargo</label>
+            <input
+              type="text"
+              id="role"
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+              placeholder="Ej: Desarrollador Frontend"
+              required
+            />
+          </div>
+
+          <button type="submit" className="submit-btn">
+            {editIndex !== null ? "Actualizar Empleado" : "Registrar Empleado"}
+          </button>
+        </form>
+      </div>
+    </div>
+  );
 }
 
 export default App;
