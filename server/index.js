@@ -8,9 +8,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 PORT = 3001;
-//route for get all empleados
-app.get("/empleados", (req, res) => {
-  const sql = "SELECT * FROM empleados";
+//route for get all employees
+app.get("/employees", (req, res) => {
+  const sql = "SELECT * FROM employees";
   db.query(sql, (err, results) => {
     if (err) {
       return res
@@ -21,11 +21,11 @@ app.get("/empleados", (req, res) => {
   });
 });
 
-app.post("/empleados", (req, res) => {
-  const { nombre, edad, pais, cargo, anios } = req.body;
+app.post("/employees", (req, res) => {
+  const { name, age, country, role, years } = req.body;
   const sql =
-    "INSERT INTO empleados (nombre,edad,pais,cargo, anios) VALUES (?,?,?,?,?)";
-  db.query(sql, [nombre, edad, pais, cargo, anios], (err, result) => {
+    "INSERT INTO employees (name,age,country,role, years) VALUES (?,?,?,?,?)";
+  db.query(sql, [name, age, country, role, years], (err, result) => {
     if (err) {
       return res
         .status(500)
@@ -34,21 +34,21 @@ app.post("/empleados", (req, res) => {
     return res.json({
       message: "empleado guardado correctamente",
       id: result.insertId,
-      nombre,
-      edad,
-      pais,
-      cargo,
-      anios,
+      name,
+      age,
+      country,
+      role,
+      years,
     });
   });
 });
 
-app.put("/empleados/:id", (req, res) => {
+app.put("/employees/:id", (req, res) => {
   const { id } = req.params;
-  const { nombre, edad, pais, cargo, anios } = req.body;
+  const { name, age, country, role, years } = req.body;
   const sql =
-    "UPDATE empleados SET nombre=?,edad=?,pais=?,cargo=?,anios=? WHERE id=?";
-  db.query(sql, [id, nombre, edad, pais, cargo, anios], (err, result) => {
+    "UPDATE employees SET name=?,age=?,country=?,role=?,years=? WHERE id=?";
+  db.query(sql, [id, name, age, country, role, years], (err, result) => {
     if (err) {
       return res
         .status(500)
@@ -60,9 +60,9 @@ app.put("/empleados/:id", (req, res) => {
   });
 });
 
-app.delete("/empleados/:id", (req, res) => {
+app.delete("/employees/:id", (req, res) => {
   const { id } = req.params;
-  const sql = "DELETE FROM empleados WHERE id=?";
+  const sql = "DELETE FROM employees WHERE id=?";
   db.query(sql, [id], (err, result) => {
     if (err) {
       return res
