@@ -60,7 +60,7 @@ body {
   display: flex;
   gap: 2rem;
   align-items: flex-start; /* Alineamos al inicio (arriba) */
-  flex-wrap: wrap; /* Importante: permite que bajen los elementos en celular */
+  /* Importante: permite que bajen los elementos en celular */
   justify-content: center;
 }
 
