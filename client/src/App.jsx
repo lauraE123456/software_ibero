@@ -4,6 +4,8 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import Swal from "sweetalert2";
+import FormClient from "./components/FormClient";
+import TableDetail from "./components/TableDetail";
 
 function App() {
   const [name, setName] = useState("");
@@ -35,9 +37,9 @@ function App() {
           timer: 1500,
 
           // 🎨 Colores personalizados
-          background: "var(--color-card)",     // fondo de tarjeta
-          color: "var(--color-text)",          // color del texto
-          iconColor: "var(--color-primary)",   // color del ícono
+          background: "var(--color-card)", // fondo de tarjeta
+          color: "var(--color-text)", // color del texto
+          iconColor: "var(--color-primary)", // color del ícono
           customClass: {
             popup: "swal-custom-popup",
             title: "swal-custom-title",
@@ -76,6 +78,7 @@ function App() {
             years,
           };
           setEditIndex(null);
+          setRegister(newRegister);
           Swal.fire({
             position: "top-end",
             icon: "success",
@@ -84,14 +87,15 @@ function App() {
             timer: 1500,
 
             // 🎨 Colores personalizados
-            background: "var(--color-card)",     // fondo de tarjeta
-            color: "var(--color-text)",          // color del texto
-            iconColor: "var(--color-primary)",   // color del ícono
+            background: "var(--color-card)", // fondo de tarjeta
+            color: "var(--color-text)", // color del texto
+            iconColor: "var(--color-primary)", // color del ícono
             customClass: {
               popup: "swal-custom-popup",
               title: "swal-custom-title",
             },
           });
+          console.log("newRegister", newRegister);
         } else {
           Swal.fire({
             position: "top-end",
@@ -101,9 +105,9 @@ function App() {
             timer: 1500,
 
             // 🎨 Colores personalizados
-            background: "var(--color-card)",     // fondo de tarjeta
-            color: "var(--color-text)",          // color del texto
-            iconColor: "var(--color-primary)",   // color del ícono
+            background: "var(--color-card)", // fondo de tarjeta
+            color: "var(--color-text)", // color del texto
+            iconColor: "var(--color-primary)", // color del ícono
             customClass: {
               popup: "swal-custom-popup",
               title: "swal-custom-title",
@@ -132,15 +136,14 @@ function App() {
             timer: 1500,
 
             // 🎨 Colores personalizados
-            background: "var(--color-card)",     // fondo de tarjeta
-            color: "var(--color-text)",          // color del texto
-            iconColor: "var(--color-primary)",   // color del ícono
+            background: "var(--color-card)", // fondo de tarjeta
+            color: "var(--color-text)", // color del texto
+            iconColor: "var(--color-primary)", // color del ícono
             customClass: {
               popup: "swal-custom-popup",
               title: "swal-custom-title",
             },
           });
-
         } else {
           Swal.fire({
             position: "top-end",
@@ -150,9 +153,9 @@ function App() {
             timer: 1500,
 
             // 🎨 Colores personalizados
-            background: "var(--color-card)",     // fondo de tarjeta
-            color: "var(--color-text)",          // color del texto
-            iconColor: "var(--color-primary)",   // color del ícono
+            background: "var(--color-card)", // fondo de tarjeta
+            color: "var(--color-text)", // color del texto
+            iconColor: "var(--color-primary)", // color del ícono
             customClass: {
               popup: "swal-custom-popup",
               title: "swal-custom-title",
@@ -169,6 +172,53 @@ function App() {
     setRole("");
     setYears(0);
   };
+  //funcion para eliminar datos de un empleado
+  const deleteEmployee = async (index) => {
+    const employee = register[index];
+    try {
+      const response = await fetch(
+        `http://localhost:3001/employees/${employee.id}`,
+        {
+          method: "DELETE",
+        }
+      );
+      if (response.ok) {
+        setRegister(register.filter((_, i) => i !== index));
+        if (editIndex === index) {
+          setEditIndex(null);
+          setName("");
+          setAge(0);
+          setCountry("");
+          setRole("");
+          setYears(0);
+        }
+      } else {
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: "Error deleting employee",
+          showConfirmButton: false,
+          timer: 1500,
+          // 🎨 Colores personalizados
+          background: "var(--color-card)", // fondo de tarjeta
+          color: "var(--color-text)", // color del texto
+          iconColor: "var(--color-primary)", // color del ícono
+        });
+      }
+    } catch (error) {
+      console.log("Error al eliminar el empleado", error);
+    }
+  };
+  const editEmployee = (index) => {
+    const employee = register[index];
+    setName(employee.name);
+    setAge(employee.age);
+    setCountry(employee.country);
+    setRole(employee.role);
+    setYears(employee.years);
+    setEditIndex(index);
+  };
+  console.log("register", register);
   return (
     <div className="container">
       <div className="form-card">
@@ -177,74 +227,26 @@ function App() {
           <p>Ingresa la información del nuevo integrante</p>
         </div>
 
-        <form onSubmit={registerData}>
-          <div className="form-group">
-            <label htmlFor="name">Nombre Completo</label>
-            <input
-              type="text"
-              id="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Ej: Juan Pérez"
-              required
-            />
-          </div>
-
-          <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="age">Edad</label>
-              <input
-                type="number"
-                id="age"
-                value={age}
-                onChange={(e) => setAge(e.target.value)}
-                placeholder="0"
-                required
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="years">Años de Experiencia</label>
-              <input
-                type="number"
-                id="years"
-                value={years}
-                onChange={(e) => setYears(e.target.value)}
-                placeholder="0"
-                required
-              />
-            </div>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="country">País</label>
-            <input
-              type="text"
-              id="country"
-              value={country}
-              onChange={(e) => setCountry(e.target.value)}
-              placeholder="Ej: Colombia"
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="role">Cargo</label>
-            <input
-              type="text"
-              id="role"
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
-              placeholder="Ej: Desarrollador Frontend"
-              required
-            />
-          </div>
-
-          <button type="submit" className="submit-btn">
-            {editIndex !== null ? "Actualizar Empleado" : "Registrar Empleado"}
-          </button>
-        </form>
+        <FormClient
+          registerData={registerData}
+          setName={setName}
+          setAge={setAge}
+          setCountry={setCountry}
+          setRole={setRole}
+          setYears={setYears}
+          age={age}
+          years={years}
+          country={country}
+          role={role}
+          editIndex={editIndex}
+          name={name}
+        />
       </div>
+      <TableDetail
+        register={register}
+        deleteEmployee={deleteEmployee}
+        editEmployee={editEmployee}
+      />
     </div>
   );
 }

@@ -1,152 +1,317 @@
 /* Global Reset & Font */
 :root {
-    --color-primary: #a855f7;
-    /* morado vivo */
-    --color-primary-dark: #7e22ce;
-    --color-bg: #0d0818;
-    /* fondo oscuro */
-    --color-card: #1a1129;
-    /* tarjetas */
-    --color-input: #140d20;
-    /* inputs */
-    --color-border: #4c1d95;
-    /* borde morado */
-    --color-text: #e9d5ff;
-    /* texto morado claro */
-    --color-text-muted: #c4b5fd;
-    /* texto secundario */
-    --color-white: #ffffff;
+  --color-primary: #a855f7; /* morado vivo */
+  --color-primary-dark: #7e22ce;
+  --color-bg: #0d0818; /* fondo oscuro */
+  --color-card: #1a1129; /* tarjetas */
+  --color-input: #140d20; /* inputs */
+  --color-border: #4c1d95; /* borde morado */
+  --color-text: #e9d5ff; /* texto morado claro */
+  --color-text-muted: #c4b5fd; /* texto secundario */
+  --color-white: #ffffff;
+
+  /* Nuevos colores para acciones */
+  --color-danger: #ef4444; /* Rojo para eliminar */
+  --color-danger-bg: rgba(239, 68, 68, 0.15);
+  --color-info: #3b82f6; /* Azul para editar */
+  --color-info-bg: rgba(59, 130, 246, 0.15);
+}
+
+/* Personalización del Scrollbar (Barra de desplazamiento) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
 }
 
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
 }
 
 body {
-    background-color: var(--color-bg);
-    color: var(--color-text);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+  /* Quitamos el display flex del body para permitir scroll si la tabla es larga */
+  padding: 2rem 0;
 }
 
 /* Container */
 .container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    padding: 20px;
+  width: 100%;
+  max-width: 1200px; /* Limitamos el ancho máximo */
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start; /* Alineamos al inicio (arriba) */
+  flex-wrap: wrap; /* Importante: permite que bajen los elementos en celular */
+  justify-content: center;
 }
 
 /* Form Card */
 .form-card {
-    background: var(--color-card);
-    padding: 2.5rem;
-    border-radius: 16px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-    /* Darker shadow for dark mode */
-    border: 1px solid rgba(168, 85, 247, 0.1);
-    /* Subtle purple border */
-    width: 100%;
-    max-width: 450px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background: var(--color-card);
+  padding: 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(168, 85, 247, 0.1);
+  width: 100%;
+  max-width: 400px; /* Un poco más estrecho para dejar espacio a la tabla */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  flex-shrink: 0; /* Evita que el formulario se aplaste */
 }
 
 .form-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 15px 30px rgba(168, 85, 247, 0.15);
-    /* Purple glow on hover */
-    border-color: rgba(168, 85, 247, 0.3);
+  box-shadow: 0 15px 30px rgba(168, 85, 247, 0.15);
+  border-color: rgba(168, 85, 247, 0.3);
 }
 
 /* Header */
 .form-header {
-    text-align: center;
-    margin-bottom: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
 }
 
 .form-header h2 {
-    color: var(--color-white);
-    font-size: 1.75rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  color: var(--color-white);
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .form-header p {
-    color: var(--color-text-muted);
-    font-size: 0.95rem;
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
 }
 
 /* Form Groups */
 .form-group {
-    margin-bottom: 1.25rem;
+  margin-bottom: 1.25rem;
 }
 
 .form-row {
-    display: flex;
-    gap: 1rem;
+  display: flex;
+  gap: 1rem;
 }
 
 .form-row .form-group {
-    flex: 1;
+  flex: 1;
 }
 
 label {
-    display: block;
-    margin-bottom: 0.5rem;
-    color: var(--color-text);
-    font-size: 0.9rem;
-    font-weight: 600;
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--color-text);
+  font-size: 0.9rem;
+  font-weight: 600;
 }
 
 input {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    background-color: var(--color-input);
-    border: 2px solid var(--color-border);
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: all 0.2s;
-    outline: none;
-    color: var(--color-white);
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: var(--color-input);
+  border: 2px solid var(--color-border);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.2s;
+  outline: none;
+  color: var(--color-white);
 }
 
 input:focus {
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2);
 }
 
 input::placeholder {
-    color: rgba(233, 213, 255, 0.3);
+  color: rgba(233, 213, 255, 0.3);
 }
 
-/* Button */
+/* Button Submit */
 .submit-btn {
-    width: 100%;
-    padding: 0.875rem;
-    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
-    color: var(--color-white);
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-    margin-top: 1rem;
-    box-shadow: 0 4px 12px rgba(126, 34, 206, 0.3);
+  width: 100%;
+  padding: 0.875rem;
+  background: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-primary-dark) 100%
+  );
+  color: var(--color-white);
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 1rem;
+  box-shadow: 0 4px 12px rgba(126, 34, 206, 0.3);
 }
 
 .submit-btn:hover {
-    filter: brightness(1.1);
-    transform: translateY(-1px);
-    box-shadow: 0 6px 16px rgba(126, 34, 206, 0.4);
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(126, 34, 206, 0.4);
 }
 
 .submit-btn:active {
-    transform: translateY(0);
+  transform: translateY(0);
+}
+
+/* =========================================
+   ESTILOS NUEVOS PARA LA TABLA (MEJORADOS)
+   ========================================= */
+
+/* Contenedor de la tabla */
+.tabla-container {
+  flex: 1; /* Toma el espacio restante */
+  min-width: 300px; /* Ancho mínimo antes de bajar de línea */
+  /* Efecto cristal (Glassmorphism) */
+  background: rgba(26, 17, 41, 0.7);
+  backdrop-filter: blur(10px);
+  padding: 0; /* Quitamos padding para que el header toque los bordes */
+  border-radius: 16px;
+  border: 1px solid rgba(168, 85, 247, 0.2);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  overflow: hidden; /* Para respetar los bordes redondeados */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Wrapper para el scroll */
+.tabla-wrapper {
+  overflow-x: auto;
+  width: 100%;
+}
+
+.tabla-registros {
+  width: 100%;
+  border-collapse: collapse; /* Mantiene celdas juntas */
+  white-space: nowrap;
+}
+
+/* Encabezados de tabla - VERSIÓN LIMPIA */
+.tabla-registros th {
+  background-color: rgba(168, 85, 247, 0.05); /* Fondo sólido muy sutil */
+  color: var(--color-primary); /* Texto morado neón para resaltar */
+  text-align: center;
+  padding: 1.25rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 1px solid var(--color-primary); /* Borde simple y elegante */
+}
+
+/* Celdas del cuerpo */
+.tabla-registros td {
+  padding: 1.1rem 1rem;
+  text-align: center;
+  border-bottom: 1px solid rgba(168, 85, 247, 0.1);
+  color: var(--color-text);
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+/* Filas alternadas (Zebra striping muy sutil) */
+.tabla-registros tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+/* Efecto hover en las filas */
+.tabla-registros tr {
+  transition: background-color 0.2s ease;
+}
+
+.tabla-registros tr:hover {
+  background-color: rgba(168, 85, 247, 0.1) !important;
+}
+
+.tabla-registros tr:hover td {
+  color: var(--color-white);
+}
+
+/* Indicador lateral neon al hacer hover */
+.tabla-registros tr:hover td:first-child {
+  box-shadow: inset 3px 0 0 var(--color-primary);
+}
+
+/* Botones de Acción (Editar / Eliminar) */
+.btn-editar,
+.btn-eliminar {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-right: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Estilo Editar (Azul Neón) */
+.btn-editar {
+  background-color: rgba(59, 130, 246, 0.1);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.btn-editar:hover {
+  background-color: rgba(59, 130, 246, 0.2);
+  border-color: #60a5fa;
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Estilo Eliminar (Rojo Neón) */
+.btn-eliminar {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  margin-right: 0;
+}
+
+.btn-eliminar:hover {
+  background-color: rgba(239, 68, 68, 0.2);
+  border-color: #f87171;
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.2);
+  transform: translateY(-2px);
+}
+
+/* RESPONSIVE: Ajustes para celular */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column; /* Apila formulario y tabla */
+    padding: 10px;
+  }
+
+  .form-card,
+  .tabla-container {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .form-row {
+    flex-direction: column; /* Inputs apilados en movil */
+    gap: 0;
+  }
 }
