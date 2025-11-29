@@ -48,7 +48,7 @@ app.put("/employees/:id", (req, res) => {
   const { name, age, country, role, years } = req.body;
   const sql =
     "UPDATE employees SET name=?,age=?,country=?,role=?,years=? WHERE id=?";
-  db.query(sql, [id, name, age, country, role, years], (err, result) => {
+  db.query(sql, [name, age, country, role, years, id], (err, result) => {
     if (err) {
       return res
         .status(500)

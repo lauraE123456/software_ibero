@@ -58,12 +58,21 @@ function App() {
       //editar un empleado existente
       try {
         const employee = register[editIndex];
+        console.log("Editando ID:", employee.id); // Si esto dice undefined, ese es el problema
+        console.log("Enviando datos:", { id: employee.id, name, age });
         const response = await fetch(
           `http://localhost:3001/employees/${employee.id}`,
           {
             method: "PUT", //metodo http para actualizar,
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name, age, country, role, years }),
+            body: JSON.stringify({
+              id: employee.id,
+              name,
+              age,
+              country,
+              role,
+              years,
+            }),
           }
         );
         if (response.ok) {
@@ -71,6 +80,7 @@ function App() {
           //remplazamos el objeto en la posicion editada con los nuevos valores
           newRegister[editIndex] = {
             ...employee,
+            id: employee.id,
             name,
             age,
             country,
@@ -243,6 +253,7 @@ function App() {
         />
       </div>
       <TableDetail
+        key={editIndex}
         register={register}
         deleteEmployee={deleteEmployee}
         editEmployee={editEmployee}
