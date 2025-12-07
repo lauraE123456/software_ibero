@@ -22,6 +22,8 @@ const TableDetail = ({ register, editEmployee, deleteEmployee }) => {
                 {/* Columna: Cargo */}
                 <th>Años</th>
                 {/* Columna: Años de experiencia */}
+                <th>Correo</th>
+                <th>Salario</th>
                 <th>Acciones</th>
                 {/* Columna: Botones de acción */}
               </tr>
@@ -42,6 +44,8 @@ const TableDetail = ({ register, editEmployee, deleteEmployee }) => {
                     {/* Celda: cargo del empleado */}
                     <td>{reg.years}</td>
                     {/* Celda: años de experiencia */}
+                    <td>{reg.email}</td>
+                    <td>{reg.salary}</td>
                     <td>
                       {/* Celda: acciones */}
                       <button

@@ -22,42 +22,52 @@ app.get("/employees", (req, res) => {
 });
 
 app.post("/employees", (req, res) => {
-  const { name, age, country, role, years } = req.body;
+  const { name, age, country, role, years, email, salary } = req.body;
   const sql =
-    "INSERT INTO employees (name,age,country,role, years) VALUES (?,?,?,?,?)";
-  db.query(sql, [name, age, country, role, years], (err, result) => {
-    if (err) {
-      return res
-        .status(500)
-        .json({ error: "error al guardar los datos del empleado" });
+    "INSERT INTO employees (name,age,country,role, years,email,salary) VALUES (?,?,?,?,?,?,?)";
+  db.query(
+    sql,
+    [name, age, country, role, years, email, salary],
+    (err, result) => {
+      if (err) {
+        return res
+          .status(500)
+          .json({ error: "error al guardar los datos del empleado" });
+      }
+      return res.json({
+        message: "empleado guardado correctamente",
+        id: result.insertId,
+        name,
+        age,
+        country,
+        role,
+        years,
+        email,
+        salary,
+      });
     }
-    return res.json({
-      message: "empleado guardado correctamente",
-      id: result.insertId,
-      name,
-      age,
-      country,
-      role,
-      years,
-    });
-  });
+  );
 });
 
 app.put("/employees/:id", (req, res) => {
   const { id } = req.params;
-  const { name, age, country, role, years } = req.body;
+  const { name, age, country, role, years, email, salary } = req.body;
   const sql =
-    "UPDATE employees SET name=?,age=?,country=?,role=?,years=? WHERE id=?";
-  db.query(sql, [name, age, country, role, years, id], (err, result) => {
-    if (err) {
-      return res
-        .status(500)
-        .json({ error: "error al actualizar los datos del empleado" });
+    "UPDATE employees SET name=?,age=?,country=?,role=?,years=?,email=?,salary=?  WHERE id=?";
+  db.query(
+    sql,
+    [name, age, country, role, years, email, salary, id],
+    (err, result) => {
+      if (err) {
+        return res
+          .status(500)
+          .json({ error: "error al actualizar los datos del empleado" });
+      }
+      return res.json({
+        message: "empleado actualizado correctamente",
+      });
     }
-    return res.json({
-      message: "empleado actualizado correctamente",
-    });
-  });
+  );
 });
 
 app.delete("/employees/:id", (req, res) => {

@@ -13,6 +13,10 @@ const FormClient = ({
   role,
   editIndex,
   name,
+  email,
+  setEmail,
+  salary,
+  setSalary,
 }) => {
   return (
     <form onSubmit={registerData}>
@@ -76,6 +80,32 @@ const FormClient = ({
           placeholder="Ej: Desarrollador Frontend"
           required
         />
+      </div>
+
+      <div className="form-row">
+        <div className="form-group">
+          <label htmlFor="age">Correo</label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="0"
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="years">Salario</label>
+          <input
+            type="number"
+            id="salario"
+            value={salary}
+            onChange={(e) => setSalary(e.target.value)}
+            placeholder="0"
+            required
+          />
+        </div>
       </div>
 
       <button type="submit" className="submit-btn" onClick={registerData}>

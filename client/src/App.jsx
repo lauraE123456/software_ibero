@@ -13,6 +13,8 @@ function App() {
   const [country, setCountry] = useState("");
   const [role, setRole] = useState(""); //Cargo
   const [years, setYears] = useState(0); //anos de experiencia
+  const [email, setEmail] = useState("");
+  const [salary, setSalary] = useState(0);
 
   // lista para almacenar todos los empleados
   const [register, setRegister] = useState([]);
@@ -72,6 +74,8 @@ function App() {
               country,
               role,
               years,
+              email,
+              salary,
             }),
           }
         );
@@ -86,6 +90,8 @@ function App() {
             country,
             role,
             years,
+            email,
+            salary,
           };
           setEditIndex(null);
           setRegister(newRegister);
@@ -132,7 +138,15 @@ function App() {
         const response = await fetch("http://localhost:3001/employees", {
           method: "POST", //metodo http para actualizar,
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name, age, country, role, years }),
+          body: JSON.stringify({
+            name,
+            age,
+            country,
+            role,
+            years,
+            email,
+            salary,
+          }),
         });
         const data = await response.json();
         if (response.ok) {
@@ -181,6 +195,8 @@ function App() {
     setCountry("");
     setRole("");
     setYears(0);
+    setEmail("");
+    setSalary(0);
   };
   //funcion para eliminar datos de un empleado
   const deleteEmployee = async (index) => {
@@ -201,6 +217,8 @@ function App() {
           setCountry("");
           setRole("");
           setYears(0);
+          setEmail("");
+          setSalary(0);
         }
       } else {
         Swal.fire({
@@ -226,6 +244,8 @@ function App() {
     setCountry(employee.country);
     setRole(employee.role);
     setYears(employee.years);
+    setEmail(employee.email);
+    setSalary(employee.salary);
     setEditIndex(index);
   };
   console.log("register", register);
@@ -250,6 +270,10 @@ function App() {
           role={role}
           editIndex={editIndex}
           name={name}
+          email={email}
+          setEmail={setEmail}
+          salary={salary}
+          setSalary={setSalary}
         />
       </div>
       <TableDetail
