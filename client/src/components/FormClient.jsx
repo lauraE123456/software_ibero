@@ -90,7 +90,7 @@ const FormClient = ({
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="0"
+            placeholder="@gmail.com"
             required
           />
         </div>
